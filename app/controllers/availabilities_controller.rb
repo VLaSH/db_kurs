@@ -1,13 +1,13 @@
 class AvailabilitiesController < ApplicationController
   before_action :availability, only: [:edit, :update, :destroy]
-  before_action :products, only: [:new, :edit]
+  before_action :products, only: [:new, :create, :edit, :update]
 
   def index
     @availabilities = Availability._all
   end
 
   def new
-    @availability = {}
+    @availability = Availability.new
   end
 
   def create

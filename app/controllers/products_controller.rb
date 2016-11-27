@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
   before_action :product, only: [:edit, :update, :destroy]
-  before_action :categories, only: [:new, :edit]
+  before_action :categories, only: [:new, :create, :edit, :update]
 
   def index
     @products = Product._all
   end
 
   def new
-    @product = {}
+    @product = Product.new
   end
 
   def create

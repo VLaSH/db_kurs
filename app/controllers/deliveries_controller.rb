@@ -1,14 +1,14 @@
 class DeliveriesController < ApplicationController
   before_action :delivery, only: [:edit, :update, :destroy]
-  before_action :providers, only: [:new, :edit]
-  before_action :products, only: [:new, :edit]
+  before_action :providers, only: [:new, :create, :edit, :update]
+  before_action :products, only: [:new, :create, :edit, :update]
 
   def index
     @deliveries = Delivery._all
   end
 
   def new
-    @delivery = {}
+    @delivery = Delivery.new
   end
 
   def create

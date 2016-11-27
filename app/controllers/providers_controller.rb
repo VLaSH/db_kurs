@@ -6,13 +6,13 @@ class ProvidersController < ApplicationController
   end
 
   def new
-    @provider = {}
+    @provider = Provider.new
   end
 
   def create
     @provider = Provider.new(provider_params)
     if @provider.valid?
-      Provider._create(provider_params.to_h, params[:id])
+      Provider._create(provider_params.to_h)
       redirect_to providers_path
     else
       render :new, notice: 'Provider created'
