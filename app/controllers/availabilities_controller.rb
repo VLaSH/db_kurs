@@ -1,5 +1,6 @@
 class AvailabilitiesController < ApplicationController
   before_action :availability, only: [:edit, :update, :destroy]
+  before_action :products, only: [:new, :edit]
 
   def new
     @availability = Availability.new
@@ -40,5 +41,9 @@ class AvailabilitiesController < ApplicationController
 
   def availability
     @availability ||= Availability.find(params[:id])
+  end
+
+  def products
+    @products ||= Product._all
   end
 end

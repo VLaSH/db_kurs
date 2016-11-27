@@ -1,5 +1,7 @@
 class DeliveriesController < ApplicationController
   before_action :delivery, only: [:edit, :update, :destroy]
+  before_action :providers, only: [:new, :edit]
+  before_action :products, only: [:new, :edit]
 
   def new
     @delivery = Delivery.new
@@ -42,5 +44,13 @@ class DeliveriesController < ApplicationController
 
   def delivery
     @delivery ||= Delivery.find(params[:id])
+  end
+
+  def providers
+    @providers ||= Provider._all
+  end
+
+  def products
+    @products ||= Product._all
   end
 end

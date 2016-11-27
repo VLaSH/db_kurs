@@ -1,6 +1,7 @@
 class Delivery < ApplicationRecord
   belongs_to :provider
   belongs_to :product
+  validates :provider_id, :product_id, :price, :amount, :delivery_date, :end_date, presence: true
 
   class << self
     def connection
