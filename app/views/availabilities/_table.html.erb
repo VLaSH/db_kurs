@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Назва товару</th>
+          <th>Кількість</th>
+          <th>Кінець терміну</th>
+          <th>Поточна ціна</th>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+        </tr>
+      </thead>
+      <tbody>
+      <%= render partial: 'availability', collection: @availabilities %>
+      </tbody>
+    </table>
+  </div>
+</div>

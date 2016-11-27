@@ -1,6 +1,10 @@
 class CategoriesController < ApplicationController
   before_action :category, only: [:edit, :update, :destroy]
 
+  def index
+    @categories = Category.all
+  end
+
   def new
     @category = Category.new
   end

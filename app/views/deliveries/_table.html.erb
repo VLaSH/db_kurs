@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Адреса постачальника</th>
+          <th>Назва</th>
+          <th>Ціна закупки</th>
+          <th>Кількість</th>
+          <th>Дата поставки</th>
+          <th>Кінцевий термін</th
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= render partial: 'deliver', collection: @deliveries %>
+      </tbody>
+    </table>
+  </div>
+</div>

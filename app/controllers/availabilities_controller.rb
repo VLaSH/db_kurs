@@ -2,6 +2,10 @@ class AvailabilitiesController < ApplicationController
   before_action :availability, only: [:edit, :update, :destroy]
   before_action :products, only: [:new, :edit]
 
+  def index
+    @availabilities = Availability.all
+  end
+
   def new
     @availability = Availability.new
   end

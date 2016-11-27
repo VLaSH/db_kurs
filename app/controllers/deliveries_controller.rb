@@ -4,6 +4,10 @@ class DeliveriesController < ApplicationController
   before_action :products, only: [:new, :edit]
   validates :product_id, uniqueness: true
 
+  def index
+    @deliveries = Delivery.all
+  end
+
   def new
     @delivery = Delivery.new
   end
