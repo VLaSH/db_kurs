@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20161127161826) do
   enable_extension "plpgsql"
 
   create_table "availabilities", force: :cascade do |t|
+    t.integer  "product_id"
     t.integer  "amount"
     t.datetime "end_date"
     t.decimal  "price"
