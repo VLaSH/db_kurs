@@ -45,6 +45,6 @@ class ProvidersController < ApplicationController
   end
 
   def provider
-    @provider ||= Provider._find(params[:id])
+    @provider ||= Provider.new(Provider._find(params[:id]))
   end
 end

@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.new(product_params)
     if @product.valid?
-      Product._update(product_params.to_h)
+      Product._update(product_params.to_h, params[:id])
       redirect_to products_path
     else
       render :edit, notice: 'Product updated'
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   end
 
   def product
-    @product ||= Product._find(params[:id])
+    @product ||= Product.new(Product._find(params[:id]))
   end
 
   def categories

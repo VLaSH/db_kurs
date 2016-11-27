@@ -13,7 +13,7 @@ class AvailabilitiesController < ApplicationController
   def create
     @availability = Availability.new(availability_params)
     if @availability.valid?
-      Availability._create(availability_params.to_h, params[:id])
+      Availability._create(availability_params.to_h)
       redirect_to availabilities_path
     else
       render :new, notice: 'Availability created'
@@ -47,7 +47,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def availability
-    @availability ||= Availability._find(params[:id])
+    @availability ||= Availability.new(Availability._find(params[:id]))
   end
 
   def products
