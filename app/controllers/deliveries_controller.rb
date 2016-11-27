@@ -1,6 +1,10 @@
 class DeliveriesController < ApplicationController
   before_action :delivery, only: [:edit, :update, :destroy]
 
+  def index
+    @deliveries = Delivery.all
+  end
+
   def new
     @delivery = Delivery.new
   end

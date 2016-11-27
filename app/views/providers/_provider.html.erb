@@ -1,0 +1,7 @@
+<tr>
+  <td><%= provider.address %></td>
+  <td><%= provider.phone %></td>
+  <td><%= link_to 'Show', provider %></td>
+  <td><%= link_to 'Edit', edit_provider_path(provider) %></td>
+  <td><%= link_to 'Destroy',  { action: :destroy, id: provider.id }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
