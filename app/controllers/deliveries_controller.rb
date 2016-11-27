@@ -2,6 +2,7 @@ class DeliveriesController < ApplicationController
   before_action :delivery, only: [:edit, :update, :destroy]
   before_action :providers, only: [:new, :edit]
   before_action :products, only: [:new, :edit]
+  validates :product_id, uniqueness: true
 
   def new
     @delivery = Delivery.new
