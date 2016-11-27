@@ -1,21 +1,3 @@
 <h1 align="center">Додати наявність</h1>
 
-<div class="row">
-  <div class="col-xs-4 col-xs-offset-4">
-    <%= form_for @availability do |f| %>
-      <%= f.label :product_id, 'Назва товару' %>
-      <%= f.collection_select :product_id, @products.map  { |p| [p[:id], p[:name]] }, :first, :last, {}, class: 'form-control' %>
-
-      <%= f.label :amount, 'Кількість' %>
-      <%= f.number_field :amount, class: "form-control" %>
-
-      <%= f.label :price, 'Поточна ціна' %>
-      <%= f.number_field :price, class: "form-control" %>
-
-      <%= f.label :end_date, 'Кінець терміну' %>
-      <%= f.date_field :end_date, class: "form-control" %>
-      <br/>
-      <%= f.submit class: 'btn btn-default btn-success' %>
-    <% end %>
-  </div>
-</div>
+<%= render 'form', method: :post, url: availabilities_path, name: 'Створити наявність' %>

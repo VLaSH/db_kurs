@@ -43,6 +43,6 @@ class CategoriesController < ApplicationController
   end
 
   def category
-    @category ||= Category._find(params[:id])
+    @category ||= Category.new(Category._find(params[:id]))
   end
 end

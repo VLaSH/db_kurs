@@ -1,15 +1,3 @@
 <h1 align="center">Додати товар</h1>
 
-<div class="row">
-  <div class="col-xs-4 col-xs-offset-4">
-    <%= form_for @product do |f| %>
-      <%= f.label :name, 'Назва' %>
-      <%= f.text_field :name, class: "form-control" %>
-
-      <%= f.label :category_id, 'Категорія' %>
-      <%= f.collection_select :category_id, @categories.map  { |p| [p[:id], p[:name]] }, :first, :last, {}, class: 'form-control' %>
-      <br/>
-      <%= f.submit class: 'btn btn-default btn-success' %>
-    <% end %>
-  </div>
-</div>
+<%= render 'form', method: :post, url: products_path, name: 'Створити товар' %>

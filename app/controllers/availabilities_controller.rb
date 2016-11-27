@@ -47,7 +47,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def availability
-    @availability ||= Availability._find(params[:id])
+    @availability ||= Availability.new(Availability._find(params[:id]))
   end
 
   def products

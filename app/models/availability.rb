@@ -14,7 +14,7 @@ class Availability < ApplicationRecord
 
     def _find(id)
       res = connection.execute("SELECT availabilities.* FROM availabilities WHERE availabilities.id = #{id} LIMIT 1")
-      make_hash(res.fields, res.values)
+      make_hash(res.fields, res.values).first
     end
 
     def _create(params)
