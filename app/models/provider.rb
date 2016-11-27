@@ -21,6 +21,17 @@ class Provider < ApplicationRecord
       make_hash(res.fields, res.values)
     end
 
+    def _update(params, id)
+      str = ''
+      params.keys.each { |k| str << "#{k} = '#{params[k]}'," if params[k].present? }
+      str.chop!
+      connection.execute("UPDATE providers SET #{str} WHERE providers.id = #{id}")
+    end
+
+    def _destroy(id)
+      connection.execute("DELETE FROM providers WHERE providers.id = #{id}")
+    end
+
     def make_hash(fields, values)
       values.map do |v|
         {
