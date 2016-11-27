@@ -30,7 +30,10 @@ class Category < ApplicationRecord
     end
 
     def _destroy(id)
-      connection.execute("DELETE FROM categories WHERE categories.id = #{id}")
+      res = connection.execute("DELETE FROM categories WHERE categories.id = #{id}
+        AND (SELECT count(*) FROM products WHERE products.category_id = #{id}) = 0
+      ")
+      return res.cmd_tuples == 0 ? 'Цей запис має діючі асоціації, спочатку видаліть їх' : false
     end
 
     def make_hash(fields, values)

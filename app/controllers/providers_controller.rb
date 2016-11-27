@@ -30,7 +30,8 @@ class ProvidersController < ApplicationController
   end
 
   def destroy
-    Provider._destroy(params[:id])
+    res = Provider._destroy(params[:id])
+    flash[:error] = res if res
     redirect_to providers_path
   end
 

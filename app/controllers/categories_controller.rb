@@ -30,7 +30,8 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    Category._destroy(params[:id])
+    res = Category._destroy(params[:id])
+    flash[:error] = res if res
     redirect_to categories_path
   end
 

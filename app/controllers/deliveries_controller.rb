@@ -14,7 +14,7 @@ class DeliveriesController < ApplicationController
   def create
     @delivery = Delivery.new(delivery_params)
     if @delivery.valid?
-      Delivery._create(delivery_params.to_h, params[:id])
+      Delivery._create(delivery_params.to_h)
       redirect_to deliveries_path
     else
       render :new, notice: 'Delivery created'

@@ -35,7 +35,7 @@ class Availability < ApplicationRecord
 
     def product_name(product_id)
       name = connection.execute("SELECT name FROM products WHERE products.id = #{product_id}").values
-      name[0][0]
+      name&.first&.first
     end
 
     def make_hash(fields, values)

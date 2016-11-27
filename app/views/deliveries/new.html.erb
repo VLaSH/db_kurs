@@ -2,6 +2,11 @@
 
 <div class="row">
   <div class="col-xs-4 col-xs-offset-4">
+    <% if @delivery.errors.any? %>
+      <%= render partial: 'shared/errors', locals: { errors: @delivery.errors } %>
+    <% end %>
+  </div>
+  <div class="col-xs-4 col-xs-offset-4">
     <%= form_for @delivery do |f| %>
       <%= f.label :provider_id, 'Постачальник' %>
       <%= f.collection_select :provider_id, @providers.map  { |p| [p[:id], p[:address]] }, :first, :last, {}, class: 'form-control' %>

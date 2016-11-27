@@ -15,7 +15,7 @@ class Provider < ApplicationRecord
 
     def _find(id)
       res = connection.execute("SELECT providers.* FROM providers WHERE providers.id = #{id} LIMIT 1")
-      make_hash(res.fields, res.values)
+      make_hash(res.fields, res.values)&.first
     end
 
     def _create(params)
@@ -31,7 +31,10 @@ class Provider < ApplicationRecord
     end
 
     def _destroy(id)
-      connection.execute("DELETE FROM providers WHERE providers.id = #{id}")
+      res = connection.execute("DELETE FROM providers WHERE providers.id = #{id}
+        AND (SELECT count(*) FROM deliveries WHERE deliveries.product_id = #{id}) = 0
+      ")
+      return res.cmd_tuples == 0 ? 'Цей запис має діючі асоціації, спочатку видаліть їх' : false
     end
 
     def make_hash(fields, values)

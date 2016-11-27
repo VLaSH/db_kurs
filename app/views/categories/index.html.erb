@@ -1,4 +1,6 @@
 <%= link_to "Додати категорію", new_category_path, class: "btn btn-success" %>
 <h1 align="center">Категорії</h1>
-
+<% if flash[:error].present? %>
+  <%= render partial: 'shared/errors', locals: { errors: flash } %>
+<% end %>
 <%= render 'table' %>

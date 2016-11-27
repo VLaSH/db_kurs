@@ -31,7 +31,8 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    Product._destroy(params[:id])
+    res = Product._destroy(params[:id])
+    flash[:error] = res if res
     redirect_to products_path
   end
 

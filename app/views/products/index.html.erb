@@ -1,4 +1,6 @@
 <%= link_to "Додати продукт", new_product_path, class: "btn btn-success" %>
 <h1 align="center">Продукти</h1>
-
+<% if flash[:error].present? %>
+  <%= render partial: 'shared/errors', locals: { errors: flash } %>
+<% end %>
 <%= render 'table' %>

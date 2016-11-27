@@ -1,8 +1,12 @@
 class Delivery < ApplicationRecord
   belongs_to :provider
   belongs_to :product
-  validates :provider_id, :product_id, :price, :amount, :delivery_date, :end_date, presence: true
-  validates :product_id, uniqueness: true
+  validates :provider_id, presence: { message: 'Додайте постачальника щоб створити поставку' }
+  validates :product_id, presence: { message: 'Додайте товар щоб створити поставку' }
+  validates :amount, presence: { message: 'Додайте кількість товару щоб створити поставку' }
+  validates :delivery_date, presence: { message: 'Додайте дату поставки щоб створити поставку' }
+  validates :end_date, presence: { message: 'Додайте кінцеву дату щоб створити поставку' }
+  validates :product_id, uniqueness: { message: 'Цей продукт вже присутній на складі' }
 
   class << self
     def connection
@@ -20,7 +24,7 @@ class Delivery < ApplicationRecord
     end
 
     def _create(params)
-      params.symbolize_keys!
+      params = params.symbolize_keys
       res = connection.execute("INSERT INTO deliveries (provider_id, product_id, price, amount, delivery_date, end_date) VALUES
                                                        ('#{params[:provider_id]}', '#{params[:product_id]}', '#{params[:price]}', '#{params[:amount]}', '#{params[:delivery_date]}', '#{params[:end_date]}') RETURNING *")
       make_hash(res.fields, res.values)
@@ -39,12 +43,12 @@ class Delivery < ApplicationRecord
 
     def product_name(product_id)
       name = connection.execute("SELECT name FROM products WHERE products.id = #{product_id}").values
-      name[0][0]
+      name&.first&.first
     end
 
     def provider_address(provider_id)
       address = connection.execute("SELECT address FROM providers WHERE providers.id = #{provider_id}").values
-      address[0][0]
+      address&.first&.first
     end
 
     def make_hash(fields, values)
