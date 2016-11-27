@@ -6,13 +6,13 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @category = Product.new
+    @category = Category.new
   end
 
   def create
     @category = Category.new(category_params)
     if @category.valid?
-      Category._create(category_params.to_h, params[:id])
+      Category._create(category_params.to_h)
       redirect_to categories_path
     else
       render :new, notice: 'Category created'
