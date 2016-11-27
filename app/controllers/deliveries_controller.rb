@@ -12,12 +12,8 @@ class DeliveriesController < ApplicationController
   end
 
   def create
-    @delivery = Delivery.new(delivery_params)
-    if @delivery.valid? && @delivery.save
-      redirect_to deliveries_path
-    else
-      render :new, notice: 'Delivery created'
-    end
+    @delivery = Delivery._create(delivery_params)
+    redirect_to deliveries_path
   end
 
   def update
@@ -43,7 +39,7 @@ class DeliveriesController < ApplicationController
       :amount,
       :delivery_date,
       :end_date
-    )
+    ).to_hash
   end
 
   def delivery

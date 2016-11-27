@@ -19,6 +19,7 @@ class Delivery < ApplicationRecord
     end
 
     def _create(params)
+      params.symbolize_keys!
       res = connection.execute("INSERT INTO deliveries (provider_id, product_id, price, amount, delivery_date, end_date) VALUES
                                                        ('#{params[:provider_id]}', '#{params[:product_id]}', '#{params[:price]}', '#{params[:amount]}', '#{params[:delivery_date]}', '#{params[:end_date]}') RETURNING *")
       make_hash(res.fields, res.values)
