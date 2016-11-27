@@ -2,6 +2,10 @@ class ProductsController < ApplicationController
   before_action :product, only: [:edit, :update, :destroy]
   before_action :categories, only: [:new, :edit]
 
+  def index
+    @products = Product.all
+  end
+
   def new
     @product = Product.new
   end
