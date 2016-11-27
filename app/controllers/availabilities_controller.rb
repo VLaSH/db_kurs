@@ -3,16 +3,17 @@ class AvailabilitiesController < ApplicationController
   before_action :products, only: [:new, :edit]
 
   def index
-    @availabilities = Availability.all
+    @availabilities = Availability._all
   end
 
   def new
-    @availability = Availability.new
+    @availability = {}
   end
 
   def create
     @availability = Availability.new(availability_params)
-    if @availability.valid? && @availability.save
+    if @availability.valid?
+      Availability._create(availability_params.to_h, params[:id])
       redirect_to availabilities_path
     else
       render :new, notice: 'Availability created'
@@ -20,7 +21,9 @@ class AvailabilitiesController < ApplicationController
   end
 
   def update
-    if availability.update(availability_params)
+    @availability = Availability.new(availability_params)
+    if @availability.valid?
+      Availability._update(availability_params.to_h, params[:id])
       redirect_to availabilities_path
     else
       render :edit, notice: 'Availability updated'
@@ -28,7 +31,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def destroy
-    availability.destroy
+    Availability._destroy(params[:id])
     redirect_to availabilities_path
   end
 
@@ -44,7 +47,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def availability
-    @availability ||= Availability.find(params[:id])
+    @availability ||= Availability._find(params[:id])
   end
 
   def products

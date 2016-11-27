@@ -1,5 +1,7 @@
 class Provider < ApplicationRecord
   has_many :deliveries
+  validates :address, :phone, presence: true
+
 
   class << self
     def connection

@@ -2,16 +2,17 @@ class ProvidersController < ApplicationController
   before_action :provider, only: [:edit, :update, :destroy]
 
   def index
-    @providers = Provider.all
+    @providers = Provider._all
   end
 
   def new
-    @provider = Provider.new
+    @provider = {}
   end
 
   def create
     @provider = Provider.new(provider_params)
-    if @provider.valid? && @provider.save
+    if @provider.valid?
+      Provider._create(provider_params.to_h, params[:id])
       redirect_to providers_path
     else
       render :new, notice: 'Provider created'
@@ -19,7 +20,9 @@ class ProvidersController < ApplicationController
   end
 
   def update
-    if provider.update(provider_params)
+    @provider = Provider.new(provider_params)
+    if @provider.valid?
+      Provider._update(provider_params.to_h, params[:id])
       redirect_to providers_path
     else
       render :edit, notice: 'Provider updated'
@@ -27,7 +30,7 @@ class ProvidersController < ApplicationController
   end
 
   def destroy
-    provider.destroy
+    Provider._destroy(params[:id])
     redirect_to providers_path
   end
 
@@ -41,6 +44,6 @@ class ProvidersController < ApplicationController
   end
 
   def provider
-    @provider ||= Provider.find(params[:id])
+    @provider ||= Provider._find(params[:id])
   end
 end

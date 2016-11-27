@@ -2,6 +2,7 @@ class Delivery < ApplicationRecord
   belongs_to :provider
   belongs_to :product
   validates :provider_id, :product_id, :price, :amount, :delivery_date, :end_date, presence: true
+  validates :product_id, uniqueness: true
 
   class << self
     def connection
@@ -33,6 +34,16 @@ class Delivery < ApplicationRecord
 
     def _destroy(id)
       connection.execute("DELETE FROM deliveries WHERE deliveries.id = #{id}")
+    end
+
+    def product_name(product_id)
+      name = connection.execute("SELECT name FROM products WHERE products.id = #{product_id}").values
+      name[0][0]
+    end
+
+    def provider_address(provider_id)
+      address = connection.execute("SELECT address FROM providers WHERE providers.id = #{provider_id}").values
+      address[0][0]
     end
 
     def make_hash(fields, values)

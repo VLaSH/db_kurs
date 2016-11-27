@@ -3,6 +3,8 @@ class Product < ApplicationRecord
   belongs_to :category
   has_one :availability
 
+  validates :name, :category_id, presence: true
+
   class << self
     def connection
       ActiveRecord::Base.connection
@@ -32,6 +34,11 @@ class Product < ApplicationRecord
 
     def _destroy(id)
       connection.execute("DELETE FROM products WHERE products.id = #{id}")
+    end
+
+    def category_name(category_id)
+      name = connection.execute("SELECT name FROM categories WHERE categories.id = #{category_id}").values
+      name[0][0]
     end
 
     def make_hash(fields, values)

@@ -2,19 +2,19 @@ class DeliveriesController < ApplicationController
   before_action :delivery, only: [:edit, :update, :destroy]
   before_action :providers, only: [:new, :edit]
   before_action :products, only: [:new, :edit]
-  validates :product_id, uniqueness: true
 
   def index
-    @deliveries = Delivery.all
+    @deliveries = Delivery._all
   end
 
   def new
-    @delivery = Delivery.new
+    @delivery = {}
   end
 
   def create
     @delivery = Delivery.new(delivery_params)
-    if @delivery.valid? && @delivery.save
+    if @delivery.valid?
+      Delivery._create(delivery_params.to_h, params[:id])
       redirect_to deliveries_path
     else
       render :new, notice: 'Delivery created'
@@ -22,7 +22,9 @@ class DeliveriesController < ApplicationController
   end
 
   def update
-    if delivery.update(delivery_params)
+    @delivery = Delivery.new(delivery_params)
+    if @delivery.valid?
+      Delivery._update(delivery_params.to_h, params[:id])
       redirect_to deliveries_path
     else
       render :edit, notice: 'Delivery Updated'
@@ -30,7 +32,7 @@ class DeliveriesController < ApplicationController
   end
 
   def destroy
-    delivery.destroy
+    Delivery._destroy(params[:id])
     redirect_to deliveries_path
   end
 
@@ -48,7 +50,7 @@ class DeliveriesController < ApplicationController
   end
 
   def delivery
-    @delivery ||= Delivery.find(params[:id])
+    @delivery ||= Delivery._find(params[:id])
   end
 
   def providers

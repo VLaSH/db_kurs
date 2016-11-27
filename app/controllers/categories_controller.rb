@@ -2,16 +2,17 @@ class CategoriesController < ApplicationController
   before_action :category, only: [:edit, :update, :destroy]
 
   def index
-    @categories = Category.all
+    @categories = Category._all
   end
 
   def new
-    @category = Category.new
+    @category = {}
   end
 
   def create
     @category = Category.new(category_params)
-    if @category.valid? && @category.save
+    if @category.valid?
+      Category._create(category_params.to_h, params[:id])
       redirect_to categories_path
     else
       render :new, notice: 'Category created'
@@ -19,7 +20,9 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    if category.update(category_params)
+    @category = Category.new(category_params)
+    if @category.valid?
+      Category._update(category_params.to_h, params[:id])
       redirect_to categories_path
     else
       render :edit, notice: 'Category updated'
@@ -27,7 +30,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    category.destroy
+    Category._destroy(params[:id])
     redirect_to categories_path
   end
 
@@ -40,6 +43,6 @@ class CategoriesController < ApplicationController
   end
 
   def category
-    @category ||= Category.find(params[:id])
+    @category ||= Category._find(params[:id])
   end
 end

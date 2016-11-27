@@ -3,16 +3,17 @@ class ProductsController < ApplicationController
   before_action :categories, only: [:new, :edit]
 
   def index
-    @products = Product.all
+    @products = Product._all
   end
 
   def new
-    @product = Product.new
+    @product = {}
   end
 
   def create
     @product = Product.new(product_params)
-    if @product.valid? && @product.save
+    if @product.valid?
+      Product._create(product_params.to_h)
       redirect_to products_path
     else
       render :new, notice: 'Product created'
@@ -20,7 +21,9 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if product.update(product_params)
+    @product = Product.new(product_params)
+    if @product.valid?
+      Product._update(product_params.to_h)
       redirect_to products_path
     else
       render :edit, notice: 'Product updated'
@@ -28,7 +31,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    product.destroy
+    Product._destroy(params[:id])
     redirect_to products_path
   end
 
@@ -42,7 +45,7 @@ class ProductsController < ApplicationController
   end
 
   def product
-    @product ||= Product.find(params[:id])
+    @product ||= Product._find(params[:id])
   end
 
   def categories
