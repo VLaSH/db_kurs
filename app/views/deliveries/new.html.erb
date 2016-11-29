@@ -12,19 +12,15 @@
       <%= f.collection_select :provider_id, @providers.map  { |p| [p[:id], p[:address]] }, :first, :last, {}, class: 'form-control' %>
 
       <%= f.label :product_id, 'Назва товару' %>
-      <%= f.collection_select :product_id, @products.map  { |p| [p[:id], p[:name]] }, :first, :last, {}, class: 'form-control' %>
-
-      <%= f.label :price, 'Ціна закупки' %>
-      <%= f.number_field :price, class: "form-control" %>
+      <%= f.collection_select :product_id, @products.map  { |p| [p[:id], p[:name]] }, :first, :last, {}, class: 'form-control product-id' %>
 
       <%= f.label :amount, 'Кількість' %>
-      <%= f.number_field :amount, class: "form-control" %>
+      <%= f.number_field :amount, class: "form-control product-amount" %>
 
       <%= f.label :delivery_date, 'Дата поставки' %>
       <%= f.date_field :delivery_date, class: "form-control" %>
-
-      <%= f.label :end_date, 'Кінцевий термін' %>
-      <%= f.date_field :end_date, class: "form-control" %>
+      <br/>
+      <p class='product-price'>Ціна: 0грн</p>
       <br/>
       <%= f.submit class: 'btn btn-default btn-success' %>
     <% end %>

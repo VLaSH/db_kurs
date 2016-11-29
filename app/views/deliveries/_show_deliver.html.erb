@@ -1,0 +1,8 @@
+<tr>
+  <td><%= Delivery.provider_address(@delivery[:provider_id]) %></td>
+  <td><%= Delivery.product_name(@delivery[:product_id]) %></td>
+  <td><%= @delivery[:price] %></td>
+  <td><%= @delivery[:amount] %></td>
+  <td><%= @delivery[:delivery_date] %></td>
+  <td><%= link_to 'Destroy',  { action: :destroy, id: @delivery[:id] }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

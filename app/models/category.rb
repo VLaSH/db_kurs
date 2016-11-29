@@ -1,6 +1,6 @@
 class Category < ApplicationRecord
   has_many :products
-  validates :name, presence: true
+  validates :name, presence: { message: 'Додайте назву щоб створити категорію' }
 
   class << self
     def connection

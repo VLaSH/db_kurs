@@ -1,7 +1,8 @@
 class Provider < ApplicationRecord
   has_many :deliveries
-  validates :address, :phone, presence: true
 
+  validates :address, presence: { message: 'Додайте адресу щоб створити постачальника' }
+  validates :phone, presence: { message: 'Додайте номер телефону щоб створити постачальника' }
 
   class << self
     def connection

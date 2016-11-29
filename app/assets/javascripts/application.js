@@ -15,3 +15,16 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+$(document).on('turbolinks:load', function() {
+  $('.product-amount').on('change', function() {
+    $.ajax({
+      url: 'http://localhost:3000/deliveries/new',
+      dataType: 'script',
+      data: {
+        product_id: $('.product-id').val(),
+        count: $('.product-amount').val()
+      }
+    })
+  })
+})

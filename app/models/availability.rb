@@ -18,7 +18,7 @@ class Availability < ApplicationRecord
     end
 
     def _create(params)
-      res = connection.execute("INSERT INTO availabilities (product_id, amount, end_date, price) VALUES ('#{params[:product_id]}', '#{params[:amount]}', '#{params[:end_date]}', '#{params[:price]}') RETURNING *")
+      res = connection.execute("INSERT INTO availabilities (product_id, amount) VALUES ('#{params[:product_id]}', '#{params[:amount]}') RETURNING *")
       make_hash(res.fields, res.values)
     end
 
@@ -43,9 +43,7 @@ class Availability < ApplicationRecord
         {
           id: v[0],
           product_id: v[1],
-          amount: v[2],
-          end_date: v[3],
-          price: v[4]
+          amount: v[2]
         }
       end
     end

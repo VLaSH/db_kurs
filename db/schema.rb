@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127161826) do
+ActiveRecord::Schema.define(version: 20161129114807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "availabilities", force: :cascade do |t|
-    t.integer  "product_id"
-    t.integer  "amount"
-    t.datetime "end_date"
-    t.decimal  "price"
+    t.integer "product_id"
+    t.integer "amount"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -27,18 +25,19 @@ ActiveRecord::Schema.define(version: 20161127161826) do
   end
 
   create_table "deliveries", force: :cascade do |t|
-    t.integer  "provider_id"
-    t.integer  "product_id"
-    t.decimal  "price"
-    t.integer  "amount"
-    t.datetime "delivery_date"
-    t.datetime "end_date"
-    t.string   "name"
+    t.integer "provider_id"
+    t.integer "product_id"
+    t.decimal "price"
+    t.integer "amount"
+    t.date    "delivery_date"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string  "name"
     t.integer "category_id"
+    t.date    "made"
+    t.integer "expiration"
+    t.string  "name"
+    t.decimal "price"
   end
 
   create_table "providers", force: :cascade do |t|

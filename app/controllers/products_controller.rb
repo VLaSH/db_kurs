@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :product, only: [:edit, :update, :destroy]
+  before_action :product, only: [:edit, :update, :destroy, :show]
   before_action :categories, only: [:new, :create, :edit, :update]
 
   def index
@@ -41,7 +41,10 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(
       :name,
-      :category_id
+      :category_id,
+      :made,
+      :expiration,
+      :price
     )
   end
 

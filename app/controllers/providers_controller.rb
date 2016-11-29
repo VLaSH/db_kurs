@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-  before_action :provider, only: [:edit, :update, :destroy]
+  before_action :provider, only: [:edit, :update, :destroy, :show]
 
   def index
     @providers = Provider._all

@@ -1,0 +1,5 @@
+<tr>
+  <td><%= Availability.product_name(@availability[:product_id]) %></td>
+  <td><%= @availability[:amount] %></td>
+  <td><%= link_to 'Destroy',  { action: :destroy, id: @availability[:id] }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

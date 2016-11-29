@@ -1,3 +1,6 @@
+<% if @product&.errors&.any? %>
+  <%= render partial: 'shared/errors', locals: { errors: @product.errors } %>
+<% end %>
 <div class="row">
   <div class="col-xs-4 col-xs-offset-4">
     <%= form_for @product, url: url, method: method do |f| %>
@@ -6,6 +9,15 @@
 
       <%= f.label :category_id, 'Категорія' %>
       <%= f.collection_select :category_id, @categories.map  { |p| [p[:id], p[:name]] }, :first, :last, {}, class: 'form-control' %>
+
+      <%= f.label :made, 'Дата виготовлення' %>
+      <%= f.date_field :made, class: "form-control" %>
+
+      <%= f.label :expiration, 'Термін придатності' %>
+      <%= f.number_field :expiration, class: "form-control", min: 0 %>
+
+      <%= f.label :price, 'Ціна' %>
+      <%= f.number_field :price, class: "form-control", min: 0, step: 'any' %>
       <br/>
       <%= f.submit name, class: 'btn btn-default btn-success' %>
     <% end %>

@@ -4,7 +4,6 @@
   <td><%= deliver[:price] %></td>
   <td><%= deliver[:amount] %></td>
   <td><%= deliver[:delivery_date] %></td>
-  <td><%= deliver[:end_date] %></td>
   <td><%= link_to 'Show', delivery_path(deliver[:id]) %></td>
   <td><%= link_to 'Destroy',  { action: :destroy, id: deliver[:id] }, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

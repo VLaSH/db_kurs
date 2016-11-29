@@ -5,8 +5,7 @@ class CreateDeliveries < ActiveRecord::Migration[5.0]
       t.integer :product_id
       t.decimal :price
       t.integer :amount
-      t.datetime :delivery_date
-      t.datetime :end_date
+      t.date :delivery_date
     end
   end
 end

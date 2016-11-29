@@ -1,5 +1,5 @@
 class DeliveriesController < ApplicationController
-  before_action :delivery, only: [:edit, :update, :destroy]
+  before_action :delivery, only: [:edit, :update, :destroy, :show]
   before_action :providers, only: [:new, :create, :edit, :update]
   before_action :products, only: [:new, :create, :edit, :update]
 
@@ -8,7 +8,10 @@ class DeliveriesController < ApplicationController
   end
 
   def new
-    @delivery = Delivery.new
+    respond_to do |f|
+      f.html { @delivery = Delivery.new }
+      f.js { calc_price }
+    end
   end
 
   def create
@@ -19,6 +22,9 @@ class DeliveriesController < ApplicationController
     else
       render :new, notice: 'Delivery created'
     end
+  rescue ActiveRecord::StatementInvalid => e
+    flash[:error] = e.cause.message
+    render :new
   end
 
   def update
@@ -42,10 +48,8 @@ class DeliveriesController < ApplicationController
     params.require(:delivery).permit(
       :provider_id,
       :product_id,
-      :price,
       :amount,
-      :delivery_date,
-      :end_date
+      :delivery_date
     )
   end
 
@@ -59,5 +63,14 @@ class DeliveriesController < ApplicationController
 
   def products
     @products ||= Product._all
+  end
+
+  def calc_price
+    @price = Product._find(params[:product_id])[:price].to_f
+    if @price.present?
+      @price *= params[:count].to_i
+    else
+      @price = 0
+    end
   end
 end

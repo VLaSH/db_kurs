@@ -3,7 +3,11 @@ class Product < ApplicationRecord
   belongs_to :category
   has_one :availability
 
-  validates :name, :category_id, presence: true
+  validates :name, presence: { message: 'Додайте назву щоб створити продукт' }
+  validates :category_id, presence: { message: 'Виберіть категорію щоб створити постачальника' }
+  validates :made, presence: { message: 'Додайте дату виготовлення щоб створити продукт' }
+  validates :expiration, presence: { message: 'Виберіть термін придатності щоб створити постачальника' }
+
 
   class << self
     def connection
@@ -21,7 +25,13 @@ class Product < ApplicationRecord
     end
 
     def _create(params)
-      res = connection.execute("INSERT INTO products (name, category_id) VALUES ('#{params[:name]}', '#{params[:category_id]}') RETURNING *")
+      res = connection.execute("
+        INSERT INTO products (name, category_id, made, expiration, price)
+        VALUES (
+          '#{params[:name]}', '#{params[:category_id]}', '#{params[:made]}',
+          '#{params[:expiration]}', '#{params[:price]}'
+        ) RETURNING *
+      ")
       make_hash(res.fields, res.values)
     end
 
@@ -49,8 +59,11 @@ class Product < ApplicationRecord
       values.map do |v|
         {
           id: v[0],
-          name: v[1],
-          category_id: v[2]
+          category_id: v[1],
+          made: v[2],
+          expiration: v[3],
+          name: v[4],
+          price: v[5]
         }
       end
     end
