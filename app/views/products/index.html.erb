@@ -3,4 +3,12 @@
 <% if flash[:error].present? %>
   <%= render partial: 'shared/errors', locals: { errors: flash } %>
 <% end %>
+<div class='row'>
+  <%= form_for '', url: products_path, method: :get do |f| %>
+    <%= f.label :name, 'Назва' %>
+    <%= f.text_field :search, class: "form-control" %>
+
+    <%= f.submit 'Шукати', class: 'btn btn-default btn-success' %>
+  <% end %>
+</div>
 <%= render 'table' %>

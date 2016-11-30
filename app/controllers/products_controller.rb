@@ -3,7 +3,11 @@ class ProductsController < ApplicationController
   before_action :categories, only: [:new, :create, :edit, :update]
 
   def index
-    @products = Product._all
+    if params[:search].present?
+      @products = Product._search(params[:search])
+    else
+      @products = Product._all(params[:sort])
+    end
   end
 
   def new
@@ -18,6 +22,9 @@ class ProductsController < ApplicationController
     else
       render :new, notice: 'Product created'
     end
+  rescue ActiveRecord::StatementInvalid => e
+    flash[:error] = e.cause.message
+    render :new
   end
 
   def update

@@ -2,8 +2,11 @@
 
 <div class="row">
   <div class="col-xs-4 col-xs-offset-4">
-    <% if @delivery.errors.any? %>
+    <% if @delivery&.errors&.any? %>
       <%= render partial: 'shared/errors', locals: { errors: @delivery.errors } %>
+    <% end %>
+    <% if flash[:error].present? %>
+      <%= render partial: 'shared/errors', locals: { errors: flash } %>
     <% end %>
   </div>
   <div class="col-xs-4 col-xs-offset-4">

@@ -14,8 +14,8 @@ class Product < ApplicationRecord
       ActiveRecord::Base.connection
     end
 
-    def _all
-      res = connection.execute("SELECT products.* FROM products")
+    def _all(order)
+      res = connection.execute("SELECT products.* FROM products ORDER BY products.price #{order.to_s}")
       make_hash(res.fields, res.values)
     end
 
@@ -50,6 +50,11 @@ class Product < ApplicationRecord
        return res.cmd_tuples == 0 ? 'Цей запис має діючі асоціації, спочатку видаліть їх' : false
     end
 
+    def _search(name)
+      res = connection.execute("SELECT searchProductByName('#{name}')")
+      make_hash(res.fields, parse_res(res)) if res.values.any?
+    end
+
     def category_name(category_id)
       name = connection.execute("SELECT name FROM categories WHERE categories.id = #{category_id}").values
       name&.first&.first
@@ -66,6 +71,12 @@ class Product < ApplicationRecord
           price: v[5]
         }
       end
+    end
+
+    def parse_res(res)
+      new_res = [[]]
+      new_res[0] = res.values[0][0].gsub(/\(|\)/, '').split(',')
+      new_res
     end
   end
 

@@ -3,7 +3,7 @@
   <td><%= Product.category_name(product[:category_id]) %></td>
   <td><%= product[:made] %></td>
   <td><%= product[:expiration] %></td>
-  <td><%= product[:price] %></td>
+  <td><%= product[:price] %>грн</td>
 
   <td><%= link_to 'Show', product_path(product[:id]) %></td>
   <td><%= link_to 'Edit', edit_product_path(product[:id]) %></td>

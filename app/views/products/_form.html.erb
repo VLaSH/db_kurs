@@ -1,6 +1,9 @@
 <% if @product&.errors&.any? %>
   <%= render partial: 'shared/errors', locals: { errors: @product.errors } %>
 <% end %>
+<% if flash[:error].present? %>
+  <%= render partial: 'shared/errors', locals: { errors: flash } %>
+<% end %>
 <div class="row">
   <div class="col-xs-4 col-xs-offset-4">
     <%= form_for @product, url: url, method: method do |f| %>
@@ -17,7 +20,7 @@
       <%= f.number_field :expiration, class: "form-control", min: 0 %>
 
       <%= f.label :price, 'Ціна' %>
-      <%= f.number_field :price, class: "form-control", min: 0, step: 'any' %>
+      <%= f.number_field :price, class: "form-control", step: 'any' %>
       <br/>
       <%= f.submit name, class: 'btn btn-default btn-success' %>
     <% end %>
