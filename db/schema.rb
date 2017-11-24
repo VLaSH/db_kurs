@@ -15,32 +15,32 @@ ActiveRecord::Schema.define(version: 20161129114807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "availabilities", force: :cascade do |t|
+  create_table "availabilities", id: :serial, force: :cascade do |t|
     t.integer "product_id"
     t.integer "amount"
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
   end
 
-  create_table "deliveries", force: :cascade do |t|
+  create_table "deliveries", id: :serial, force: :cascade do |t|
     t.integer "provider_id"
     t.integer "product_id"
     t.decimal "price"
     t.integer "amount"
-    t.date    "delivery_date"
+    t.date "delivery_date"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", id: :serial, force: :cascade do |t|
+    t.string "name"
     t.integer "category_id"
-    t.date    "made"
+    t.date "made"
     t.integer "expiration"
-    t.string  "name"
     t.decimal "price"
   end
 
-  create_table "providers", force: :cascade do |t|
+  create_table "providers", id: :serial, force: :cascade do |t|
     t.string "address"
     t.string "phone"
   end
