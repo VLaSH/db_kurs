@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129114807) do
+ActiveRecord::Schema.define(version: 20171126140043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "airline_places", id: :serial, force: :cascade do |t|
+    t.integer "airline_id"
+    t.integer "place_id"
+  end
+
+  create_table "airlines", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.decimal "price_coef"
+  end
 
   create_table "availabilities", id: :serial, force: :cascade do |t|
     t.integer "product_id"
@@ -24,12 +34,21 @@ ActiveRecord::Schema.define(version: 20161129114807) do
     t.string "name"
   end
 
+  create_table "cheques", id: :serial, force: :cascade do |t|
+    t.integer "ticket_id"
+  end
+
   create_table "deliveries", id: :serial, force: :cascade do |t|
     t.integer "provider_id"
     t.integer "product_id"
     t.decimal "price"
     t.integer "amount"
     t.date "delivery_date"
+  end
+
+  create_table "places", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
   end
 
   create_table "products", id: :serial, force: :cascade do |t|
@@ -43,6 +62,22 @@ ActiveRecord::Schema.define(version: 20161129114807) do
   create_table "providers", id: :serial, force: :cascade do |t|
     t.string "address"
     t.string "phone"
+  end
+
+  create_table "seat_types", id: :serial, force: :cascade do |t|
+    t.integer "airline_id"
+    t.string "name"
+    t.decimal "price_coef"
+  end
+
+  create_table "tickets", id: :serial, force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "airline_id"
+    t.integer "seat_type_id"
+    t.decimal "price"
+    t.integer "days_amount"
+    t.date "start_date"
+    t.integer "people_amount"
   end
 
 end
