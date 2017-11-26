@@ -14,7 +14,7 @@ class Product < ApplicationRecord
       ActiveRecord::Base.connection
     end
 
-    def _all(order)
+    def _all(order = 'asc')
       res = connection.execute("SELECT products.* FROM products ORDER BY products.price #{order.to_s}")
       make_hash(res.fields, res.values)
     end
@@ -64,10 +64,10 @@ class Product < ApplicationRecord
       values.map do |v|
         {
           id: v[0],
-          category_id: v[1],
-          made: v[2],
-          expiration: v[3],
-          name: v[4],
+          category_id: v[2],
+          made: v[3],
+          expiration: v[4],
+          name: v[1],
           price: v[5]
         }
       end
